@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
+          name="viewport"/>
+    <title>欢迎页</title>
+    <script src="./js/jquery-3.5.1.js"></script>
+    
+    
+    <link rel="stylesheet" href="css/game.css" />
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .bg {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .bg video {
+            width: 100%;
+        }
+
+        .logo {
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .logo img {
+            width: 350px;
+        }
+
+        .action {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .start-game {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: scale(1);
+            overflow: hidden;
+            box-shadow: 0 0 25px 25px #DB2727;
+            animation: run 0.8s infinite alternate;
+            cursor: pointer;
+        }
+
+        .start-game img {
+            object-fit: cover;
+        }
+
+        @keyframes run {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 25px 25px #DB2727;
+            }
+            100% {
+                transform: scale(0.85);
+                box-shadow: 0 0 15px 15px #DB2727;
+            }
+        }
+
+        .select-mode {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+        .tip{
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #F5CF40;
+            font-size: 60px;
+            font-family: 华文行楷,serif;
+            text-shadow: 0 0 10px #000;
+        }
+
+        @keyframes show {
+            0% {
+                margin-top: -1000px;
+            }
+            50%, 60% {
+                margin-top: 0;
+            }
+            70% {
+                margin-top: -50px;
+            }
+            80% {
+                margin-top: 0;
+            }
+            90% {
+                margin-top: -30px;
+            }
+            100% {
+                margin-top: 0;
+            }
+        }
+
+        .mode-bg img {
+            width: 600px;
+        }
+
+        .mode-wrap {
+            width: 495px;
+            position: absolute;
+            top: 53px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .mode {
+            width: 230px;
+            height: 200px;
+            border: 1px solid #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            color: #f5f5f5;
+            cursor: pointer;
+            transition: background-color .2s;
+        }
+
+        .selected {
+            background: url(img/页面/5人场.jpg) no-repeat;
+            background-size: 100% 130%;
+        }
+
+        .enter-game {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: pointer;
+            filter: brightness(1);
+            transition: filter 0.2s;
+        }
+
+        .enter-game:hover {
+            filter: brightness(1.25);
+        }
+        .welcome-mask{
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            background-color: rgba(0,0,0,.5);
+        }
+        .welcome{
+            width: 300px;
+            height: 150px;
+            text-align: center;
+            background-color: #fff;
+            font-size: 20px;
+            border-radius: 5px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: top-show 1s 1;
+        }
+        @keyframes top-show {
+            0%{
+                transform: translate(-50%, -50%) scale(0.01);
+            }
+            100%{
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+        .welcome p{
+            margin: 35px 0 30px;
+        }
+        .welcome .btn{
+            width: 80px;
+            height: 30px;
+            line-height: 30px;
+            background-color: #DB2727;
+            border: none;
+            outline: none;
+            color: #fff;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+        
+        .paizu{
+            width: 150px;
+            height: 213px;
+           
+            position: absolute;
+            left: 45%;
+            top: 0;
+        }
+        
+
+        .card {
+            position: absolute;
+            background:url(img/卡牌/牌背/牌背.jpg) no-repeat;
+            background-size:100% 100%;
+            border: 1px solid #e0e0e0;
+            /*background-size: 150px 213px;*/
+            width: 150px;
+            height: 213px;
+            border-radius: 5px;
+            transition: transform 4s;
+            transform-style: preserve-3d;
+        }
+
+        .player {
+            width: 150px;
+            height: 200px;
+            border: 1px solid #4ba36a;
+            line-height: 200px;
+            text-align: center;
+            font-size: 50px;
+            position: absolute;
+        }
+        .player3 {
+            bottom: 0;
+            left: 13%;
+            transform: translateX(-50%);
+             position: absolute;
+        }
+
+        .mingling{
+        	position: absolute;
+        	top: 0;
+        }
+
+        .deal {
+        	
+            margin-left: 40px;
+        }
+        .wgfd{
+            margin-left: 80px;
+        }
+        .mid{
+            width: 52%;
+            height: 200px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .xianshi{
+        	position: absolute;
+        	top: 50%;
+            left: 34%;
+        }
+        
+        
+        .on {
+            bottom: 20px;
+        }
+
+      
+        .line {
+            width: inherit;
+            height: inherit;
+            background-color: #eb2f06;
+            animation: show 0.5s 1;
+        }
+
+        @keyframes show {
+            0% {
+                height: 0;
+            }
+
+            100% {
+                height: inherit;
+            }
+        }
+
+        
+        
+    </style>
+</head>
+<body>
+<ul class="paizu">
+  
+</ul>
+
+
+<div class="yemian">
+	<img src="img/页面/timg.jpg" width="100%" height="100%" />
+	    <div id="jieshao" style="display: none;">
+		    <img class="biankuang" src="img/页面/slider_bg.png" width="100%"/>
+		    <img class="wujiang" src="" />
+		    <div class="name"></div>
+		    <div class="miaoshu"></div>
+		    <div id="fanhui"><h2>返回</h2></div>
+		</div>
+		<div class="game" id="game">
+			<div class="zhuomian">
+				
+			</div>
+			<ul class="qipai">
+	
+            </ul>
+			<ul class="xianshi">
+	
+            </ul>
+		    <!-- 玩家0 -->
+		    <div class="chupai_btn0">
+		    	<p class="chupai" style="font-size: 20px;color: white;">出牌</p> 	
+		    	<p class="guo" style="font-size: 20px;color: white;">过</p> 	
+		    </div>
+		    <div class="queren_btn0">
+		    	<p class="queren" style="font-size: 20px;color: white;">确认</p> 	
+		    	<p class="quxiao" style="font-size: 20px;color: white;">取消</p> 	
+		    </div>
+		    <ul class="player player3">
+	
+            </ul>
+		    <!--<div id="shoupai">
+		    	
+		    </div>-->
+		    <div class="jineng_btn" >
+				<p  style="font-size: 20px;color: white;">技能</p> 			  
+			</div>
+		    <div id="wanjia0">
+		    	<ul class="tili">
+		    		<li class="shenfen0"></li>
+		    		<li ><img class="tili10" src="img/页面/勾玉.png" width="35"height="40"/></li>
+		    		<li ><img class="tili20" src="img/页面/勾玉.png" width="35"height="40"/></li>
+		    		<li ><img class="tili30" src="img/页面/勾玉.png" width="35"height="40"/></li>
+		    		<li ><img class="tili40" src="img/页面/勾玉.png" width="35"height="40"/></li>
+		    	</ul>
+		        <img class="wanjia0" src="" width="200"height="300"/>
+		        
+		    </div>
+		    
+		    <!-- 玩家1 -->
+		    <div class="chupai_btn1">
+		    	<p class="chupai" style="font-size: 10px;color: white;">出牌</p> 	
+		    	<p class="guo" style="font-size: 10px;color: white;">过</p> 	
+		    </div>
+		    <div class="queren_btn1">
+		    	<p class="queren" style="font-size: 10px;color: white;">确认</p> 	
+		    	<p class="quxiao" style="font-size: 10px;color: white;">取消</p> 	
+		    </div>
+			<div id="wanjia1">
+				<ul class="tili">
+		    		<li class="shenfen1"></li>
+		    		<li ><img class="tili11" src="img/页面/勾玉.png" width="35"height="40"/></li>
+		    		<li ><img class="tili21" src="img/页面/勾玉.png" width="35"height="40"/></li>
+		    		<li ><img class="tili31" src="img/页面/勾玉.png" width="35"height="40"/></li>
+		    		<li ><img class="tili41" src="img/页面/勾玉.png" width="35"height="40"/></li>
+		    	</ul>
+				<img class="wanjia1" src="" width="200"height="300"/>
+			 </div>
+			 <!-- 玩家2 -->
+		    <div class="chupai_btn2">
+		    	<p class="chupai" style="font-size: 10px;color: white;">出牌</p> 	
+		    	<p class="guo" style="font-size: 10px;color: white;">过</p> 	
+		    </div>
+		    <div class="queren_btn2">
+		    	<p class="queren" style="font-size: 10px;color: white;">确认</p> 	
+		    	<p class="quxiao" style="font-size: 10px;color: white;">取消</p> 	
+		    </div>
+			 <div id="wanjia2">
+			 	<ul class="tili">
+		    		<li class="shenfen2"></li>
+		    		<li ><img class="tili12" src="img/页面/勾玉.png" width="35"height="40"/></li>
+		    		<li ><img class="tili22" src="img/页面/勾玉.png" width="35"height="40"/></li>
+		    		<li ><img class="tili32" src="img/页面/勾玉.png" width="35"height="40"/></li>
+		    		<li ><img class="tili42" src="img/页面/勾玉.png" width="35"height="40"/></li>
+		    	</ul>
+			 	<img class="wanjia2" src="" width="200"height="300"/>
+			 				 
+			 </div>
+			 <!-- 玩家3 -->
+		    <div class="chupai_btn3">
+		    	<p class="chupai" style="font-size: 10px;color: white;">出牌</p> 	
+		    	<p class="guo" style="font-size: 10px;color: white;">过</p> 	
+		    </div>
+		    <div class="queren_btn3">
+		    	<p class="queren" style="font-size: 10px;color: white;">确认</p> 	
+		    	<p class="quxiao" style="font-size: 10px;color: white;">取消</p> 	
+		    </div>
+			 <div id="wanjia3">
+			 	<ul class="tili">
+		    		<li class="shenfen3"></li>
+		    		<li ><img class="tili13" src="img/页面/勾玉.png" width="35"height="40"/></li>
+		    		<li ><img class="tili23" src="img/页面/勾玉.png" width="35"height="40"/></li>
+		    		<li ><img class="tili33" src="img/页面/勾玉.png" width="35"height="40"/></li>
+		    		<li ><img class="tili43" src="img/页面/勾玉.png" width="35"height="40"/></li>
+		    	</ul>
+			 	<img class="wanjia3" src="" width="200"height="300"/>
+			 </div>
+			 <!-- 玩家4 -->
+		    <div class="chupai_btn4">
+		    	<p class="chupai" style="font-size: 10px;color: white;">出牌</p> 	
+		    	<p class="guo" style="font-size: 10px;color: white;">过</p> 	
+		    </div>
+		    <div class="queren_btn4">
+		    	<p class="queren" style="font-size: 10px;color: white;">确认</p> 	
+		    	<p class="quxiao" style="font-size: 10px;color: white;">取消</p> 	
+		    </div>
+			 <div id="wanjia4">
+			 	<ul class="tili">
+		    		<li class="shenfen4"></li>
+		    		<li ><img class="tili14" src="img/页面/勾玉.png" width="35"height="40"/></li>
+		    		<li ><img class="tili24" src="img/页面/勾玉.png" width="35"height="40"/></li>
+		    		<li ><img class="tili34" src="img/页面/勾玉.png" width="35"height="40"/></li>
+		    		<li ><img class="tili44" src="img/页面/勾玉.png" width="35"height="40"/></li>
+		    	</ul>
+			 	<img class="wanjia4" src="" width="200"height="300"/>
+			 </div>
+			</div>
+</div>
+</body>
+<script>
+	
+    $('.mode').click(function () {
+        $('.mode').removeClass('selected')
+        $(this).addClass('selected')
+        $('.enter-game').click(function(){
+        	$('.bg').css({display: 'none'})
+        	
+        	$('.yemian').css({display: 'block', animation: 'show 1s 1'})
+        })
+    })
+    $('.start-game').click(function () {
+        $(this).css({visibility: 'hidden'})
+        $('.select-mode').css({display: 'block', animation: 'show 1s 1'})
+        $('#bg-audio')[0].pause()
+        $('#select-mode-audio')[0].play()
+    })
+    $('.btn').click(function (){
+        $('#bg-audio')[0].play()
+        $('.bg video')[0].play()
+        $('.welcome-mask').css({display: 'none'})
+    })   
+    
+</script>
+<script type="text/javascript" src="js/GGSJ.js" ></script>
+<script type="text/javascript" src="js/game.js" ></script>
+
+<script type="text/javascript" src="js/TiShiAi.js" ></script>
+<script type="text/javascript" src="js/LiuCheng.js" ></script>
+<script type="text/javascript" src="js/GuiZe.js" ></script>
+
+<script type="text/javascript" src="js/index.js" ></script>
+<script type="text/javascript" src="js/clear.js" ></script>
+</html>

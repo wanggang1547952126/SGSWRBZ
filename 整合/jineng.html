@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
+          name="viewport"/>
+    <title>技能动画</title>
+    <script src="./js/jquery-3.5.1.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        .player {
+            width: 150px;
+            height: 200px;
+            line-height: 200px;
+            text-align: center;
+            font-size: 50px;
+            border: 2px solid #4ba36a;
+            position: absolute;
+            bottom: 200px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .on {
+            bottom: 20px;
+        }
+
+      
+        .line {
+            width: inherit;
+            height: inherit;
+            background-color: #eb2f06;
+            animation: show 0.5s 1;
+        }
+
+        @keyframes show {
+            0% {
+                height: 0;
+            }
+
+            100% {
+                height: inherit;
+            }
+        }
+
+       
+    </style>
+</head>
+
+<body>
+
+<div class="player">4</div>
+</body>
+<script>
+    $('.player').click(function () {
+        if ($(this).hasClass('on')) {
+            $(this).removeClass('on')
+        } else {
+            $(this).addClass('on')
+        }
+    })
+   
+</script>
+</html>
